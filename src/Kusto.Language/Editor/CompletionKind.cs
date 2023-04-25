@@ -124,7 +124,7 @@ namespace Kusto.Language.Editor
         /// <summary>
         /// The name of a materialized view
         /// </summary>
-        MaterialiedView,
+        MaterializedView,
 
         /// <summary>
         /// The name of a graph

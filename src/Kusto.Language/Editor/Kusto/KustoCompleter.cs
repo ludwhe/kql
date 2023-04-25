@@ -325,7 +325,7 @@ namespace Kusto.Language.Editor
                 case CompletionKind.Table:
                     return CompletionRank.Table;
 
-                case CompletionKind.MaterialiedView:
+                case CompletionKind.MaterializedView:
                     return CompletionRank.MaterializedView;
 
                 case CompletionKind.Variable:
@@ -743,6 +743,11 @@ namespace Kusto.Language.Editor
         private SyntaxToken GetTokenWithAffinity(int position)
         {
             var token = this.code.Syntax.GetTokenAt(position);
+            if (token == null)
+            {
+                return null;
+            }
+
             var previous = token.GetPreviousToken();
 
             if (HasAffinity(token, position))
@@ -2687,7 +2692,7 @@ namespace Kusto.Language.Editor
                 case SymbolKind.Table:
                     return CompletionKind.Table;
                 case SymbolKind.MaterializedView:
-                    return CompletionKind.MaterialiedView;
+                    return CompletionKind.MaterializedView;
                 case SymbolKind.Graph:
                     return CompletionKind.Graph;
                 case SymbolKind.Tuple:
