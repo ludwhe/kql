@@ -39,6 +39,11 @@ namespace Kusto.Language.Editor
             var builder = new CompletionBuilder();
             var mode = CompletionMode.Combined;
 
+            if (editStart < 0)
+            {
+                editStart = 0;
+            }
+
             // use editStart instead of actual cursor position to adjust for token affinity
             if (options.IncludeSymbols)
             {
@@ -246,6 +251,9 @@ namespace Kusto.Language.Editor
         private bool ShouldComplete(int position)
         {
             var token = this.code.Syntax.GetTokenAt(position);
+            if (token == null)
+                return true;
+
             var previous = token.GetPreviousToken();
             var affinity = GetTokenWithAffinity(position) ?? token;
 
